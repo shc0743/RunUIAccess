@@ -42,6 +42,10 @@ BOOL WINAPI IsUIAccess();
 
 **注意**集成版本不会试图自动提权，您需要手动判断权限，或许需要手动请求UAC提权。
 
+# 备注
+
+使用框架：[w32oop](https://github.com/shc0743/w32oop) 的部分功能
+
 # 许可证（LICENSE）
 
 MIT 许可证 （MIT License）

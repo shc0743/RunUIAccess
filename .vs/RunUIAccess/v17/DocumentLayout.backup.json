@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{33425BEC-9ADA-451C-A043-37FA50ADED1B}|TestApp\\TestApp.vcxproj|D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\TestApp\\TestApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{33425BEC-9ADA-451C-A043-37FA50ADED1B}|TestApp\\TestApp.vcxproj|solutionrelative:TestApp\\TestApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8ADF1BF5-2B6C-477B-BBA1-6602A99B6E79}|uiaccess\\uiaccess.vcxproj|D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\uiaccess\\app.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8ADF1BF5-2B6C-477B-BBA1-6602A99B6E79}|uiaccess\\uiaccess.vcxproj|solutionrelative:uiaccess\\app.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -29,21 +33,34 @@
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TestApp.cpp",
+              "DocumentMoniker": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\TestApp\\TestApp.cpp",
+              "RelativeDocumentMoniker": "TestApp\\TestApp.cpp",
+              "ToolTip": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\TestApp\\TestApp.cpp*",
+              "RelativeToolTip": "TestApp\\TestApp.cpp*",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-18T15:45:08.735Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "app.cpp",
               "DocumentMoniker": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\uiaccess\\app.cpp",
               "RelativeDocumentMoniker": "uiaccess\\app.cpp",
               "ToolTip": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\uiaccess\\app.cpp",
               "RelativeToolTip": "uiaccess\\app.cpp",
-              "ViewState": "AgIAAH4AAAAAAAAAAADgv4oAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAADgv4EAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-07-18T09:38:26.616Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }

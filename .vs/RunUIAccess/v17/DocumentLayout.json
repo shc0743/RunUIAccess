@@ -14,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -29,6 +29,10 @@
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "app.cpp",
@@ -36,14 +40,10 @@
               "RelativeDocumentMoniker": "uiaccess\\app.cpp",
               "ToolTip": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\uiaccess\\app.cpp",
               "RelativeToolTip": "uiaccess\\app.cpp",
-              "ViewState": "AgIAAH4AAAAAAAAAAADgv40AAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAADgv4EAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-07-18T09:38:26.616Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }
