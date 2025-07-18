@@ -5,7 +5,6 @@ EXPORTS
 	run
 	GetUIAccessToken
 	StartUIAccessProcess
-	StartUIAccessProcessEx
 	IsUIAccess
 	GetFullUserToken
 	SuspendProcess

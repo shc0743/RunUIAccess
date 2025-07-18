@@ -124,7 +124,7 @@ static int argc; static LPWSTR* argv;
 static void appStart() { // 此函数由调用者处理可能的异常
 	// 这里才是真正的创建进程
 	// 首先从注册表获取内容
-	DWORD callerPID, flag, session, parentid;
+	DWORD callerPID, flag, session;
 	wstring appName, appCmdLine;
 	ULONGLONG ptrNumber;
 	{
@@ -136,7 +136,6 @@ static void appStart() { // 此函数由调用者处理可能的异常
 
 		flag = data.get_value<DWORD>(L"flag");
 		session = data.get_value<DWORD>(L"session");
-		parentid = data.get_value<DWORD>(L"parentid");
 	}
 	// 删除注册表
 	RegistryKey(HKEY_LOCAL_MACHINE, L"SOFTWARE").delete_key(cfgTmpKey);

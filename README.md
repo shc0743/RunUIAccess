@@ -27,7 +27,6 @@ app                     # 内部使用，请勿手动调用
 run                     # 命令行入口函数，只能从 rundll32 调用，请勿在您的程序中调用
 GetUIAccessToken        # 获取 UIAccess 的令牌。注意需要 SYSTEM 权限。一般情况下无需调用此函数
 StartUIAccessProcess    # 启动 UIAccess 进程。最常用。
-StartUIAccessProcessEx  # 启动 UIAccess 进程。(目前和StartUIAccessProcess没有区别。)
 IsUIAccess              # 判断当前进程是否以 UIAccess 权限运行。
 ```
 
@@ -36,7 +35,6 @@ IsUIAccess              # 判断当前进程是否以 UIAccess 权限运行。
 ```cpp
 HANDLE WINAPI GetUIAccessToken(DWORD dwSession);
 BOOL WINAPI StartUIAccessProcess(LPCWSTR appName, PCWSTR cmdLine, DWORD flag, PDWORD pPid, DWORD dwSession);
-BOOL WINAPI StartUIAccessProcessEx(LPCWSTR appName, PCWSTR cmdLine, DWORD flag, PDWORD pPid, DWORD dwSession, DWORD parent_id); // 注意：目前 parent_id 参数无作用
 BOOL WINAPI IsUIAccess();
 ```
 

@@ -9,12 +9,6 @@ std::wstring GenerateUUIDW();
 BOOL __stdcall StartUIAccessProcess(
 	LPCWSTR appName, PCWSTR cmdLine, DWORD flag, PDWORD pPid, DWORD dwSession
 ) {
-	return StartUIAccessProcessEx(appName, cmdLine, flag, pPid, dwSession, GetCurrentProcessId());
-}
-
-BOOL __stdcall StartUIAccessProcessEx(
-	LPCWSTR appName, PCWSTR cmdLine, DWORD flag, PDWORD pPid, DWORD dwSession, DWORD parent_id
-) {
 	// 通过创建服务来提权
 	auto memory = make_unique<char[]>(4096);
 	memset(memory.get(), 0, 4096);
@@ -33,7 +27,6 @@ BOOL __stdcall StartUIAccessProcessEx(
 		data.set(L"targetCmdLine", RegistryValue(wstring(cmdLine), REG_SZ));
 		data.set(L"flag", RegistryValue(flag, REG_DWORD));
 		data.set(L"session", RegistryValue(dwSession, REG_DWORD));
-		data.set(L"parentid", RegistryValue(parent_id, REG_DWORD));
 		// 创建服务以提权
 		ServiceManager scm;
 		auto dllPath = make_unique<wchar_t[]>(4096);
