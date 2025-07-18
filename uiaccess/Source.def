@@ -1,0 +1,14 @@
+LIBRARY
+
+EXPORTS
+	app
+	run
+	GetUIAccessToken
+	StartUIAccessProcess
+	StartUIAccessProcessEx
+	IsUIAccess
+	GetFullUserToken
+	SuspendProcess
+	ResumeProcess
+	EnableAllPrivileges
+	IsProcessElevated

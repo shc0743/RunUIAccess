@@ -1,0 +1,46 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+*.ipch
+
+# Compiled Dynamic libraries
+#*.so
+*.dylib
+#*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+#*.lib
+
+# Executables
+*.out
+*.app
+#*.exe
+#*.lnk
+
+# Others
+*.aps
+ipch
+Browse.VC.db
+*.VC.db
+FileContentIndex
+fileList.bin
+out
+dist
+node_modules
+CopilotIndices
