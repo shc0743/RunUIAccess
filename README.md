@@ -4,7 +4,7 @@
 
 使用 Windows 服务获取 SeTcbPrivilege，而不是“偷”Winlogon的令牌。
 
-参考了 [killtimer0/uiaccess](https://github.com/killtimer0/uiaccess/tree/master) 的一部分代码实现。
+参考了 [killtimer0/uiaccess](https://github.com/killtimer0/uiaccess/tree/master) 的一部分代码实现。关于 Windows `UIAccess` 的更多说明也可以前往这里查看，解释得很详细。
 
 # 用法
 
@@ -41,6 +41,18 @@ BOOL WINAPI IsUIAccess();
 ```
 
 **注意**集成版本不会试图自动提权，您需要手动判断权限，或许需要手动请求UAC提权。
+
+# 已知问题
+
+- `cmd` 对于参数处理和本程序分歧较大，会导致参数处理错误，建议：
+- 要么使用 `cmd /c path\to\batchfile.bat` 的形式，不要直接在命令行中编写完整命令
+- 要么换用更加现代的 Shell，如 `powershell` (`pwsh`) 等
+
+# 演示程序
+
+[演示程序](./bin/TestApp.exe)
+
+下载演示程序和 [uiaccess.dll](./bin/uiaccess.dll)，放在同一目录下，运行程序，然后尝试打开任务管理器或者按 Win+Tab 即可看到效果。
 
 # 备注
 
