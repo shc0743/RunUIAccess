@@ -160,30 +160,6 @@ static void appStart() { // 此函数由调用者处理可能的异常
 	STARTUPINFOEXW siex{};
 	siex.StartupInfo.cb = sizeof(STARTUPINFOW);
 	siex.StartupInfo.lpDesktop = lpDesktop;
-#if 0
-	// 设置父进程-初始化
-	SIZE_T attrSize = 0;
-	InitializeProcThreadAttributeList(NULL, 1, 0, &attrSize);
-	// 注意：siex.lpAttributeList不是RAII！需要释放
-	siex.lpAttributeList = (PPROC_THREAD_ATTRIBUTE_LIST)HeapAlloc(
-		GetProcessHeap(), 0, attrSize);
-	if (!siex.lpAttributeList) {
-		throw exception("Failed during HeapAlloc");
-	}
-	// 设置父进程
-	HANDLE hTemp1 = hCaller.get();
-	if (!UpdateProcThreadAttribute(siex.lpAttributeList, 0,
-		PROC_THREAD_ATTRIBUTE_PARENT_PROCESS,
-		&hTemp1, sizeof(hTemp1), NULL, NULL)) {
-		DWORD ec = GetLastError();
-		fstream fp("C:/Windows/Temp/WorkerUIAccess.Log", ios::out);
-		fp << "Error code: " << ec;
-		// 31: 连到系统上的设备没有发挥作用。 
-		DeleteProcThreadAttributeList(siex.lpAttributeList);
-		HeapFree(GetProcessHeap(), 0, siex.lpAttributeList);
-		throw exception("Failed during UpdateProcThreadAttribute");
-	}
-#endif
 	// 相关信息
 	PROCESS_INFORMATION pi{};
 	// 创建环境块
@@ -198,10 +174,6 @@ static void appStart() { // 此函数由调用者处理可能的异常
 		cl.get(), NULL, NULL, FALSE, flag, pEnv, NULL, &siex.StartupInfo, &pi);
 
 	// 清理
-#if 0
-	DeleteProcThreadAttributeList(siex.lpAttributeList);
-	HeapFree(GetProcessHeap(), 0, siex.lpAttributeList);
-#endif
 	if (pEnv) DestroyEnvironmentBlock(pEnv);
 	if (pi.hProcess) CloseHandle(pi.hProcess);
 	if (pi.hThread) CloseHandle(pi.hThread);
