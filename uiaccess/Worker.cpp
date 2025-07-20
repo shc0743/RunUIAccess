@@ -174,6 +174,7 @@ static void appStart() { // 此函数由调用者处理可能的异常
 		cl.get(), NULL, NULL, FALSE, flag, pEnv, NULL, &siex.StartupInfo, &pi);
 
 	// 清理
+	CloseHandle(hToken);
 	if (pEnv) DestroyEnvironmentBlock(pEnv);
 	if (pi.hProcess) CloseHandle(pi.hProcess);
 	if (pi.hThread) CloseHandle(pi.hThread);
