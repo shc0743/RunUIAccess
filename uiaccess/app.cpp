@@ -30,7 +30,7 @@ DWORD ResumeProcess(HANDLE hProcess) {
 	return pNtResumeProcess(hProcess);
 }
 bool IsProcessElevated(HANDLE hProcess = GetCurrentProcess());
-bool IsProcessElevated(HANDLE hProcess) {
+bool WINAPI IsProcessElevated(HANDLE hProcess) {
 	BOOL bElevated = false;
 	HANDLE hToken = NULL;
 	// Get current process token

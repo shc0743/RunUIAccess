@@ -28,6 +28,7 @@ run                     # 命令行入口函数，只能从 rundll32 调用，�
 GetUIAccessToken        # 获取 UIAccess 的令牌。注意需要 SYSTEM 权限。一般情况下无需调用此函数
 StartUIAccessProcess    # 启动 UIAccess 进程。最常用。
 IsUIAccess              # 判断当前进程是否以 UIAccess 权限运行。
+IsProcessElevated       # 判断进程是否以管理员权限运行。
 ```
 
 定义：
@@ -36,6 +37,7 @@ IsUIAccess              # 判断当前进程是否以 UIAccess 权限运行。
 HANDLE WINAPI GetUIAccessToken(DWORD dwSession);
 BOOL WINAPI StartUIAccessProcess(LPCWSTR appName, PCWSTR cmdLine, DWORD flag, PDWORD pPid, DWORD dwSession);
 BOOL WINAPI IsUIAccess();
+bool WINAPI IsProcessElevated(HANDLE hProcess);
 ```
 
 **注意**集成版本不会试图自动提权，您需要手动判断权限，或许需要手动请求UAC提权。
