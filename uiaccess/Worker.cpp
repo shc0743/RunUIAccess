@@ -139,7 +139,6 @@ static void appStart() { // 此函数由调用者处理可能的异常
 	// 删除注册表
 	RegistryKey(HKEY_LOCAL_MACHINE, L"SOFTWARE").delete_key(cfgTmpKey);
 
-#define WriteProcessMemory() static_assert(false); // 禁止使用 WriteProcessMemory 函数
 	w32FileHandle hFileMapping = OpenFileMappingW(FILE_MAP_ALL_ACCESS, FALSE, (L"Global\\" + cfgTmpKey).c_str());
 	auto pIPC = (StartUIAccessProcess_IPC*)MapViewOfFile(hFileMapping, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 	if (!pIPC) {
