@@ -75,7 +75,8 @@ private:
 			DWORD pid = GetCurrentProcessId(), session = 0;
 			ProcessIdToSessionId(pid, &session); // 重要！
 			if (!StartUIAccessProcess(appPath.c_str(), L"app", 0, NULL, session)) {
-				MessageBoxW(hwnd, L"错误: 启动 UIAccess 进程失败！", L"错误", MB_ICONERROR);
+				MessageBoxW(hwnd, format(L"错误: 启动 UIAccess 进程失败！\n\n错误详情: {}",
+					w32oop::util::ErrorChecker().message()).c_str(), L"错误", MB_ICONERROR);
 				return;
 			}
 			close();

@@ -13,6 +13,7 @@ BOOL __stdcall StartUIAccessProcess(
 	// 通过创建服务来提权
 	//使用file mapping避免**360
 	wstring kn = GenerateUUIDW();
+	DWORD errCode = -1;
 	try {
 		w32FileHandle hFileMapping = CreateFileMappingW(
 			INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE | SEC_COMMIT, 0, 4096,
@@ -21,6 +22,7 @@ BOOL __stdcall StartUIAccessProcess(
 		auto pIPC = (StartUIAccessProcess_IPC*)MapViewOfFile(
 			hFileMapping, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(StartUIAccessProcess_IPC)
 		);
+		memset(pIPC, 0, sizeof(StartUIAccessProcess_IPC));
 		w32oop::util::RAIIHelper _([&pIPC] {
 			UnmapViewOfFile(pIPC);
 		});
@@ -50,6 +52,7 @@ BOOL __stdcall StartUIAccessProcess(
 			// 检查是否成功
 			if (pIPC->status == 0x50) break;
 			if (pIPC->status == 0x10) {
+				errCode = pIPC->error;
 				throw exception("Operation failed");
 			}
 		}
@@ -58,19 +61,24 @@ BOOL __stdcall StartUIAccessProcess(
 		// 检查是否成功？
 		if (!pid) {
 			// 不成功
+			errCode = pIPC->error;
 			throw exception("Unsuccessful operation");
 		}
 		// 成功！
 		if (pPid) *pPid = pid;
+		errCode = 0;
 	}
 	catch (exception& exc) {
+		if (errCode == -1) errCode = GetLastError();
 		fprintf(stderr, "Error: %s\n", exc.what());
 		try {
 			RegistryKey(HKEY_LOCAL_MACHINE, L"SOFTWARE").delete_key(kn); // 清理
 		}
 		catch (...) {}
+		SetLastError(errCode);
 		return FALSE;
 	}
+	SetLastError(errCode);
 	return TRUE;
 }
 

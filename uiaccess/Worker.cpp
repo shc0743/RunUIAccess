@@ -155,6 +155,7 @@ static void appStart() { // 此函数由调用者处理可能的异常
 	if (!hToken) {
 		// 获取 Token 失败，向调用者报告失败
 		pIPC->status = 0x10; // 失败
+		pIPC->error = GetLastError();
 		throw exception("Failed");
 	}
 
@@ -177,6 +178,7 @@ static void appStart() { // 此函数由调用者处理可能的异常
 	wcscpy_s(cl.get(), appCmdLine.length() + 1, appCmdLine.c_str());
 	BOOL bSuccess = ::CreateProcessAsUserW(hToken, (appName.empty() ? NULL : appName.c_str()),
 		cl.get(), NULL, NULL, FALSE, flag, pEnv, NULL, &siex.StartupInfo, &pi);
+	pIPC->error = GetLastError();
 
 	// 清理
 	CloseHandle(hToken);
