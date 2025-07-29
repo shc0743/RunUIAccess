@@ -11,7 +11,7 @@ BOOL __stdcall StartUIAccessProcess(
 	LPCWSTR appName, PCWSTR cmdLine, DWORD flag, PDWORD pPid, DWORD dwSession
 ) {
 	// 通过创建服务来提权
-	//使用file mapping避免**360
+	//使用file mapping
 	wstring kn = GenerateUUIDW();
 	DWORD errCode = -1;
 	try {
@@ -46,7 +46,8 @@ BOOL __stdcall StartUIAccessProcess(
 		while (1) {
 			if (time(0) - now > 10) {
 				sc.remove();
-				throw exception("Time-out when waiting for service");
+				errCode = ERROR_TIMEOUT;
+				throw exception("Timed-out waiting for service");
 			}
 			Sleep(100);
 			// 检查是否成功
