@@ -65,6 +65,9 @@
     <ClCompile Include="..\..\w32oop\System\Registry.cpp">
       <Filter>w32oop</Filter>
     </ClCompile>
+    <ClCompile Include="uiaccess.ipc.internal.hpp">
+      <Filter>头文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="uiaccess.rc">

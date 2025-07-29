@@ -1,5 +1,6 @@
-﻿#include "StartUIAccessProcess.h"
-#include <w32use.hpp>
+﻿#include <w32use.hpp>
+#include "StartUIAccessProcess.h"
+#include "uiaccess.ipc.internal.hpp"
 
 using namespace std;
 
@@ -10,19 +11,24 @@ BOOL __stdcall StartUIAccessProcess(
 	LPCWSTR appName, PCWSTR cmdLine, DWORD flag, PDWORD pPid, DWORD dwSession
 ) {
 	// 通过创建服务来提权
-	auto memory = make_unique<char[]>(4096);
-	memset(memory.get(), 0, 4096);
-	volatile char& isSetBuffer = *(memory.get());
-	PROCESS_INFORMATION* ppi = (PROCESS_INFORMATION*)(memory.get() + 1);
+	//使用file mapping避免**360
 	wstring kn = GenerateUUIDW();
 	try {
+		w32FileHandle hFileMapping = CreateFileMappingW(
+			INVALID_HANDLE_VALUE, nullptr, PAGE_READWRITE | SEC_COMMIT, 0, 4096,
+			(L"Global\\" + kn).c_str()
+		);
+		auto pIPC = (StartUIAccessProcess_IPC*)MapViewOfFile(
+			hFileMapping, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(StartUIAccessProcess_IPC)
+		);
+		w32oop::util::RAIIHelper _([&pIPC] {
+			UnmapViewOfFile(pIPC);
+		});
 		// 首先设置注册表
 		RegistryKey root(HKEY_LOCAL_MACHINE, L"SOFTWARE");
 		RegistryKey data = root.create(kn);
 		// 存储相关信息
 		data.set(L"callerPID", RegistryValue(GetCurrentProcessId(), REG_DWORD));
-		ULONGLONG ptrNumber = (ULONGLONG)((void*)(memory.get()));
-		data.set(L"callerMemory", RegistryValue(ptrNumber, REG_QWORD));
 		if (appName) data.set(L"targetAppName", RegistryValue(wstring(appName), REG_SZ));
 		data.set(L"targetCmdLine", RegistryValue(wstring(cmdLine), REG_SZ));
 		data.set(L"flag", RegistryValue(flag, REG_DWORD));
@@ -42,20 +48,20 @@ BOOL __stdcall StartUIAccessProcess(
 			}
 			Sleep(100);
 			// 检查是否成功
-			if (isSetBuffer == 0x50) break;
-			if (isSetBuffer == 0x10) {
+			if (pIPC->status == 0x50) break;
+			if (pIPC->status == 0x10) {
 				throw exception("Operation failed");
 			}
 		}
 		// 接收进程信息
-		PROCESS_INFORMATION pi = *ppi; // 复制
+		DWORD pid = pIPC->pid;
 		// 检查是否成功？
-		if (!pi.dwProcessId) {
+		if (!pid) {
 			// 不成功
 			throw exception("Unsuccessful operation");
 		}
 		// 成功！
-		if (pPid) *pPid = pi.dwProcessId;
+		if (pPid) *pPid = pid;
 	}
 	catch (exception& exc) {
 		fprintf(stderr, "Error: %s\n", exc.what());

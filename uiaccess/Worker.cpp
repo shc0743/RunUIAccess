@@ -2,6 +2,7 @@
 #include "GetUIAccessToken.h"
 #include <UserEnv.h>
 #include <fstream>
+#include "uiaccess.ipc.internal.hpp"
 using namespace std;
 
 static std::wstring cfgTmpKey;
@@ -126,11 +127,9 @@ static void appStart() { // 此函数由调用者处理可能的异常
 	// 首先从注册表获取内容
 	DWORD callerPID, flag, session;
 	wstring appName, appCmdLine;
-	ULONGLONG ptrNumber;
 	{
 		RegistryKey data(HKEY_LOCAL_MACHINE, L"SOFTWARE\\" + cfgTmpKey);
 		callerPID = data.get_value<DWORD>(L"callerPID");
-		ptrNumber = data.get_value<ULONGLONG>(L"callerMemory");
 		if (data.exists_value(L"targetAppName")) appName = data.get(L"targetAppName").get<wstring>();
 		appCmdLine = data.get_value<wstring>(L"targetCmdLine");
 
@@ -140,16 +139,23 @@ static void appStart() { // 此函数由调用者处理可能的异常
 	// 删除注册表
 	RegistryKey(HKEY_LOCAL_MACHINE, L"SOFTWARE").delete_key(cfgTmpKey);
 
-	char* ptrFlagPtr = (char*)(void*)ptrNumber;
-	PROCESS_INFORMATION* ppi = (PROCESS_INFORMATION*)(ptrFlagPtr + 1);
+#define WriteProcessMemory() static_assert(false); // 禁止使用 WriteProcessMemory 函数
+	w32FileHandle hFileMapping = OpenFileMappingW(FILE_MAP_ALL_ACCESS, FALSE, (L"Global\\" + cfgTmpKey).c_str());
+	auto pIPC = (StartUIAccessProcess_IPC*)MapViewOfFile(hFileMapping, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+	if (!pIPC) {
+		throw exception("Failed to open file mapping");
+	}
+	w32oop::util::RAIIHelper _([&pIPC] {
+		UnmapViewOfFile(pIPC);
+	});
 
 	// 获取 Token
 	w32ProcessHandle hCaller = OpenProcess(PROCESS_ALL_ACCESS, FALSE, callerPID);
 	hCaller.validate();
 	HANDLE hToken = GetUIAccessToken(session);
 	if (!hToken) {
-		char data = 0x10; SIZE_T ddw = 0;
-		WriteProcessMemory(hCaller, ptrFlagPtr, &data, sizeof(data), &ddw);
+		// 获取 Token 失败，向调用者报告失败
+		pIPC->status = 0x10; // 失败
 		throw exception("Failed");
 	}
 
@@ -180,12 +186,8 @@ static void appStart() { // 此函数由调用者处理可能的异常
 	if (pi.hThread) CloseHandle(pi.hThread);
 
 	// 向调用者报告
-	char result = 0x50;
-	if (!bSuccess) result = 0x10;
-	// 写入调用者内存
-	SIZE_T memWritten = 0;
-	(void)WriteProcessMemory(hCaller, ppi, &pi, sizeof(pi), &memWritten);
-	(void)WriteProcessMemory(hCaller, ptrFlagPtr, &result, sizeof(result), &memWritten);
+	pIPC->status = (bSuccess ? 0x50 : 0x10); // 0x50: 成功, 0x10: 失败
+	pIPC->pid = pi.dwProcessId;
 
 	// 结束
 	Sleep(1000);
