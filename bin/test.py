@@ -49,8 +49,7 @@ def get_current_session_id():
 def main():
     # 检查管理员权限 (INVALID_HANDLE_VALUE = -1 表示当前进程)
     if not IsProcessElevated(wintypes.HANDLE(-1)):
-        print("错误：程序必须以管理员权限运行")
-        sys.exit(1)
+        print("错误：程序必须以管理员权限运行!")
     
     # 获取用户输入的命令行
     cmd_line = input("请输入要执行的命令（例如: notepad.exe）: ")

@@ -22,6 +22,10 @@ BOOL __stdcall StartUIAccessProcess(
 		auto pIPC = (StartUIAccessProcess_IPC*)MapViewOfFile(
 			hFileMapping, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(StartUIAccessProcess_IPC)
 		);
+		if (!pIPC) {
+			errCode = GetLastError();
+			throw exception("Failed to map view of file");
+		}
 		memset(pIPC, 0, sizeof(StartUIAccessProcess_IPC));
 		w32oop::util::RAIIHelper _([&pIPC] {
 			UnmapViewOfFile(pIPC);
@@ -71,7 +75,6 @@ BOOL __stdcall StartUIAccessProcess(
 	}
 	catch (exception& exc) {
 		if (errCode == -1) errCode = GetLastError();
-		fprintf(stderr, "Error: %s\n", exc.what());
 		try {
 			RegistryKey(HKEY_LOCAL_MACHINE, L"SOFTWARE").delete_key(kn); // 清理
 		}

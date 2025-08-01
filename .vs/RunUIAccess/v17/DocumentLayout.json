@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8ADF1BF5-2B6C-477B-BBA1-6602A99B6E79}|uiaccess\\uiaccess.vcxproj|D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\uiaccess\\StartUIAccessProcess.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8ADF1BF5-2B6C-477B-BBA1-6602A99B6E79}|uiaccess\\uiaccess.vcxproj|solutionrelative:uiaccess\\StartUIAccessProcess.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{33425BEC-9ADA-451C-A043-37FA50ADED1B}|TestApp\\TestApp.vcxproj|D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\TestApp\\TestApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{33425BEC-9ADA-451C-A043-37FA50ADED1B}|TestApp\\TestApp.vcxproj|solutionrelative:TestApp\\TestApp.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -40,22 +36,10 @@
               "RelativeDocumentMoniker": "uiaccess\\StartUIAccessProcess.cpp",
               "ToolTip": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\uiaccess\\StartUIAccessProcess.cpp",
               "RelativeToolTip": "uiaccess\\StartUIAccessProcess.cpp",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAADoAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-07-29T09:19:44.156Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TestApp.cpp",
-              "DocumentMoniker": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\TestApp\\TestApp.cpp",
-              "RelativeDocumentMoniker": "TestApp\\TestApp.cpp",
-              "ToolTip": "D:\\software\\Program\\source\\git\\github.com\\shc0743\\RunUIAccess\\TestApp\\TestApp.cpp",
-              "RelativeToolTip": "TestApp\\TestApp.cpp",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAAAHMAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-29T09:01:30.262Z"
             },
             {
               "$type": "Bookmark",
