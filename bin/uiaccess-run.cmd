@@ -1,0 +1,1 @@
+@start rundll32 "%~dp0\uiaccess.dll",run %*
